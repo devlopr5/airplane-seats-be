@@ -2,6 +2,7 @@ package com.squareshift.airplaneseats.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -51,9 +52,9 @@ public class AirplaneSeatsService {
 						int[][] zone = seatsFill.get(z);
 						
 						if( row < zone.length){ // skip zones with lesser rows ( since it is iterating every zone till max rows available)
-							if(z==0 ) 
+							if(z==0 && zone[row].length > 1) 
 								zone[row][zone[row].length-1] = count++;
-							else if(z == seatsFill.size()-1)
+							else if(z == seatsFill.size()-1 && zone[row].length > 1)
 								zone[row][0] = count++;
 							else{
 								zone[row][0] = count++;
@@ -111,4 +112,58 @@ public class AirplaneSeatsService {
 		res.setTotalSeats(totalSeats);
 		return res;
 	} 
+//	public AirplaneSeatsResponse fillSeats2(AirplaneSeatsRequest req){
+//
+//		List<int[]> seats = req.getRowsAndColumns();
+//		int p = req.getNoOfPassengers();
+//		int maxRows = 0;
+//		int count = 1;
+//		int totalSeats = 0;
+//
+//		List<int[][]> seatsFill = new ArrayList<int[][]>(); 
+//		HashMap<Integer, Integer[]> zonesVsSeats= new HashMap<Integer, Integer[]>();
+//		int zoneCt = 1;
+//		for(int[] z : seats){
+//			// 0 -> window seat
+//			// 1 -> middle seat
+//			// 2 -> aisle seat
+//			int w =  zoneCt == 1 ? z[0]*1 : 0;
+//			int m =  z[0]*(z[1] -2);
+//			int a =  zoneCt == 1 || zoneCt == seats.size() ? z[0]*1 : z[0]*2;
+//			zonesVsSeats.put(zoneCt++, new Integer[]{w, m, a });
+//			
+//			//Initializing
+//			int[] t = new int[z[0]];
+//			
+//			int[][] arr = new int[z[1]][z[0]];
+//			for(int i =0 ; i< z[1]; i++) arr[i] = Arrays.copyOf(t, t.length); 
+//			 // initializing each seat as '0' - denoting unoccupied seat
+//			/* Eg:  [2,3] [3,4] we will have 
+//			 * Zone1 	Zone2 
+//			 * - 0 0 	- 0 0 0
+//			 * - 0 0	- 0 0 0
+//			 * - 0 0 	- 0 0 0
+//			 * 			- 0 0 0
+//			 * */
+//			totalSeats += z[0] * z[1];
+//			seatsFill.add(arr);
+//			maxRows = Math.max(z[1], maxRows);	
+//		}
+//		
+//		//Start filling seats
+//		for(int row = 0; row < maxRows && count <= p ; row++){ // Iterate till last row is reached & check zone-wise
+//			for(int z = 0; z < seatsFill.size() && count <= p; z++){
+//				
+//			} 
+//		}
+//		
+//		return null;
+//	}
 }
+
+
+
+
+
+
+
