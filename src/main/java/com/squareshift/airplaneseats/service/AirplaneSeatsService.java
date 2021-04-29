@@ -59,7 +59,8 @@ public class AirplaneSeatsService {
 							else{
 								zone[row][0] = count++;
 								if(count > p) break;
-								zone[row][zone[row].length-1] = count++;
+								if(zone[row].length > 1)
+									zone[row][zone[row].length-1] = count++;
 							}
 						}else continue;
 					}
